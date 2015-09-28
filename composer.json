@@ -1,0 +1,26 @@
+{
+    "name": "morfin60/boxberry-api",
+    "version": "1.0.0",
+    "type": "library",
+    "description": "Boxberry API implementation",
+    "keywords": ["API","JSON","SOAP"],
+    "homepage": "https://github.com/morfin60/boxberry-api",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexander N",
+            "email": "morfin60@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "guzzlehttp/guzzle": ">= 6.1.0",
+        "symfony/validator": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Morfin60\\BoxberryApi\\": "lib"
+        }
+    }
+}
