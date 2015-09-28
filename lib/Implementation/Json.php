@@ -161,9 +161,10 @@ class Json implements ApiInterface
      */
     public function parselCreate($data)
     {
-        return $this->sendRequest('parselCreate', [
+        $response = $this->sendRequest('parselCreate', [
             'sdata' => json_encode($data)
         ], ['type' => 'POST']);
+        return $response;
     }
 
     /**
@@ -293,14 +294,13 @@ class Json implements ApiInterface
         }
 
         //Удаление BOM в выводе если есть
-		$json_data = preg_replace('~^\xEF\xBB\xBF~isu','', $json_data);
+        $json_data = preg_replace('~^\xEF\xBB\xBF~isu','', $json_data);
         $data = json_decode($json_data, false);
 
         //В случае неудачи разбора JSON кидаем исключение JsonException
         if (NULL === $data) {
             throw new JsonException('Failed to parse received json with message '.json_last_error_msg(), JsonException::DECODE_EXCEPTION, null, $json_data);
         }
-
         //Если API вернуло какую-то ошибку
         if (
                 is_array($data) &&
@@ -308,6 +308,9 @@ class Json implements ApiInterface
                 isset($data[0]->err)
         ) {
             throw new ApiException('Errors occured while processing API request', ApiException::API_ERROR, null, $data[0]->err);
+        }
+        elseif (is_object($data) && isset($data->err)) {
+            throw new ApiException('Errors occured while processing API request', ApiException::API_ERROR, null, $data->err);
         }
 
         return $data;
