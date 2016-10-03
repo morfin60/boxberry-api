@@ -1,6 +1,6 @@
 <?php
 
-namespace morfin60\BoxberryApi\Base;
+namespace Morfin60\BoxberryApi\Base;
 
 use Morfin60\BoxberryApi\Exception\ExceptionInterface;
 

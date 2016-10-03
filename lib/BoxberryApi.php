@@ -21,6 +21,7 @@ class BoxberryApi implements ApiInterface
     const API_SOAP = 'soap';
 
     const API_URL = 'api.boxberry.de';
+    const API_URL_TEST = 'test.api.boxberry.de';
 
     /**
      * @var string
@@ -46,8 +47,9 @@ class BoxberryApi implements ApiInterface
      * @param string $api_key
      * @param string|Morfin60\BoxberryApi\ApiInterface $type
      * @param bool $use_https
+     * @param bool $test
      */
-    public function __construct($api_key, $type = BoxberryApi::API_SOAP, $use_https = false)
+    public function __construct($api_key, $type = BoxberryApi::API_SOAP, $use_https = false, $test = false)
     {
         $this->types = [self::API_JSON, self::API_SOAP];
 
@@ -56,7 +58,8 @@ class BoxberryApi implements ApiInterface
         $values = [
             'api_key' => $api_key,
             'type' => $type,
-            'use_https' => $use_https
+            'use_https' => $use_https,
+            'test' => $test
         ];
 
         $constraint = new Assert\Collection([
@@ -71,6 +74,9 @@ class BoxberryApi implements ApiInterface
                 ]),
                 'use_https' => new Assert\Required([
                     new Assert\Type(['type' => 'bool', 'message' => 'use_https should be {{ type }}'])
+                ]),
+                'test' => new Assert\Required([
+                    new Assert\Type(['type' => 'bool', 'message' => 'test should be {{ type }}'])
                 ])
             ]
         ]);
@@ -79,7 +85,8 @@ class BoxberryApi implements ApiInterface
 
         $class = __NAMESPACE__.'\\Implementation\\'.ucfirst($type);
         if (class_exists($class)) {
-            $this->impl = new $class($api_key, self::API_URL, $use_https);
+            $working_url = (true == $test) ? self::API_URL_TEST : self::API_URL;
+            $this->impl = new $class($api_key, $working_url, $use_https);
         }
         else {
             throw new \InvalidArgumentException('Class for type {$type} does not exist', ApiException::BAD_API_CLASS);
