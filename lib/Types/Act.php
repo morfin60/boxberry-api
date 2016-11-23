@@ -18,7 +18,7 @@ class Act extends Base
     {
         $this->Id = isset($object->id)?$object->id:null;
         $this->Label = $object->label;
-        $this->Track = isset($object->track):$object->track:null;
-        $this->Date = isset($object->date):$object->date:null;
+        $this->Track = isset($object->track) ? $object->track : null;
+        $this->Date = isset($object->date) ? $object->date : null;
     }
 }
