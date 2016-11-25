@@ -174,7 +174,7 @@ class Validator
     public function validateValues($values, $constraint)
     {
 
-        $violations = $this->validator->validateValue($values, $constraint);
+        $violations = $this->validator->validate($values, $constraint);
         $violations_list = [];
         //If failed to validate arguments then we should throw ValidationException and pass violation list to $data
         if ( 0 !== $violations->count()) {
