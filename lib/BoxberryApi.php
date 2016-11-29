@@ -2,12 +2,10 @@
 
 namespace Morfin60\BoxberryApi;
 
-use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Constraints as Assert;
 
 use Morfin60\BoxberryApi\Exception\ApiException;
 use Morfin60\BoxberryApi\Validation\Validator;
-use Morfin60\BoxberryApi\Validation\Constraints as LibraryConstraints;
 
 
 /**
@@ -29,7 +27,7 @@ class BoxberryApi implements ApiInterface
     private $base_url;
 
     /**
-     * @var AbstractApi
+     * @var ApiInterface
      */
     private $impl;
 
@@ -39,13 +37,18 @@ class BoxberryApi implements ApiInterface
     private $types;
 
     /**
-     * @var Morfin60\BoxberryApi\Validator\Validator
+     * @var Validation\Validator
      */
     private $validator;
 
     /**
+     * @var Mapper\Mapper
+     */
+    private $mapper;
+
+    /**
      * @param string $api_key
-     * @param string|Morfin60\BoxberryApi\ApiInterface $type
+     * @param string $type
      * @param bool $use_https
      * @param bool $test
      */
@@ -97,6 +100,7 @@ class BoxberryApi implements ApiInterface
 
     /**
      * {@inheritdoc}
+     * @return Types\City[] список городов в виде массива
      */
     public function listCities()
     {
@@ -105,6 +109,7 @@ class BoxberryApi implements ApiInterface
 
     /**
      * {@inheritdoc}
+     * @return Types\DeliveryPoint[] список пунктов выдачи заказов
      */
     public function listPoints($city_code = 0, $prepaid = 0)
     {
@@ -131,6 +136,7 @@ class BoxberryApi implements ApiInterface
 
     /**
      * {@inheritdoc}
+     * @return Types\ZipCode[] список почтовых индексов
      */
     public function listZips()
     {
@@ -139,6 +145,7 @@ class BoxberryApi implements ApiInterface
 
     /**
      * {@inheritdoc}
+     * @return Types\ZipDelivery[] информация о возможности осуществления курьерской доставки для индекса
      */
     public function zipCheck($zip)
     {
@@ -153,6 +160,7 @@ class BoxberryApi implements ApiInterface
 
     /**
      * {@inheritdoc}
+     * @return Types\Status[] массив статусов посылки
      */
     public function listStatuses($im_id)
     {
@@ -166,6 +174,7 @@ class BoxberryApi implements ApiInterface
 
     /**
      * {@inheritdoc}
+     * @return Types\StatusFull[] массив статусов посылки
      */
     public function listStatusesFull($im_id)
     {
@@ -178,6 +187,7 @@ class BoxberryApi implements ApiInterface
 
     /**
      * {@inheritdoc}
+     * @return Types\Service[] массив услуг, оказанных по отправлению
      */
     public function listServices($im_id)
     {
@@ -191,6 +201,7 @@ class BoxberryApi implements ApiInterface
 
     /**
      * {@inheritdoc}
+     * @return Types\CourierCity[] массив городов
      */
     public function courierListCities()
     {
@@ -199,6 +210,7 @@ class BoxberryApi implements ApiInterface
 
     /**
      * {@inheritdoc}
+     * @return Types\DeliveryPrice[] массив, содержащий полную цену, а также составляющие этой цены
      */
     public function deliveryCosts($parameters = [])
     {
@@ -208,6 +220,7 @@ class BoxberryApi implements ApiInterface
 
     /**
      * {@inheritdoc}
+     * @return Types\ParcelsPoint[] массив с точками приёма посылок
      */
     public function pointsForParcels()
     {
@@ -216,6 +229,7 @@ class BoxberryApi implements ApiInterface
 
     /**
      * {@inheritdoc}
+     * @return Types\DeliveryPoint[]
      */
     public function pointsByPostCode($zip)
     {
@@ -225,6 +239,7 @@ class BoxberryApi implements ApiInterface
 
     /**
      * {@inheritdoc}
+     * @return Types\PointDescription[] информация о пункте выдачи в виде массива
      */
     public function pointsDescription($code, $photo = 0)
     {
@@ -249,6 +264,7 @@ class BoxberryApi implements ApiInterface
 
     /**
      * {@inheritdoc}
+     * @return Types\Parsel[] массив, содержащий ссылку на печать этикеток и трекинг-код посылки
      */
     public function parselCreate($data)
     {
@@ -297,6 +313,7 @@ class BoxberryApi implements ApiInterface
 
     /**
      * {@inheritdoc}
+     * @return Types\Parsel[] список посылок
      */
     public function parselStory($from = '', $to = '')
     {
@@ -306,6 +323,7 @@ class BoxberryApi implements ApiInterface
 
     /**
      * {@inheritdoc}
+     * @return Types\Act[] массив, содержащий номер акта и ссылку для получения pdf
      */
     public function parselSend($im_ids)
     {
@@ -315,6 +333,7 @@ class BoxberryApi implements ApiInterface
 
     /**
      * {@inheritdoc}
+     * @return Types\Parsel[] массив созданных актов передачи за указанный период
      */
     public function parselSendStory($from = '', $to = '')
     {
@@ -324,6 +343,7 @@ class BoxberryApi implements ApiInterface
 
     /**
      * {@inheritdoc}
+     * @return Types\OrderBalance[] список заказов
      */
     public function ordersBalance($only_postpaid = 0)
     {
@@ -346,7 +366,7 @@ class BoxberryApi implements ApiInterface
      */
     public function sendRequest($method_name, $parameters = [], $options = [])
     {
-        return $this->impl->send_request($method_name, $parameters, $options);
+        return $this->impl->sendRequest($method_name, $parameters, $options);
     }
 
     /**

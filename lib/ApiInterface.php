@@ -1,6 +1,7 @@
 <?php
 
 namespace Morfin60\BoxberryApi;
+
 /**
  * Интерфейс API Boxberry
  */
@@ -95,7 +96,7 @@ interface ApiInterface
 
     /**
      * Метод позволяет получить код ПВЗ из Boxberry по индексу города.
-     * @param int zip
+     * @param int $zip
      * @return array
      */
     public function pointsByPostCode($zip);
@@ -175,7 +176,7 @@ interface ApiInterface
      * Отправить запрос к API
      * @param string $method_name имя метода для отправки
      * @param array $parameters список параметров, который будет передан в API
-     * @param array options массив доп. опций для выполнения запроса
+     * @param array $options массив доп. опций для выполнения запроса
      */
     public function sendRequest($method_name, $parameters = [], $options = []);
 }

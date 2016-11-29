@@ -15,7 +15,7 @@ class Validator
 {
 
     /**
-     * @var Symfony\Component\Validator\Validator\RecursiveValidator $validator
+     * @var \Symfony\Component\Validator\Validator\RecursiveValidator $validator
      */
     private $validator;
 
@@ -47,7 +47,7 @@ class Validator
     /**
      * Функция, проверяющая Zip на корректность
      * @param string|int $zip
-     * @throws Morfin60\BoxberryApi\Exception\ValidationException
+     * @throws \Morfin60\BoxberryApi\Exception\ValidationException
      */
     public function validateZip($zip)
     {
@@ -69,7 +69,7 @@ class Validator
      * Проверить период дат $from - $to. Даты должны быть в формате YYYYMMDD
      * @param string $from дата в формате YYYYMMDD
      * @param string $to дата в форматеYYYYMMDD
-     * @throws Morfin60\BoxberryApi\Exception\ValidationException
+     * @throws \Morfin60\BoxberryApi\Exception\ValidationException
      */
     public function validatePeriod($from, $to)
     {
@@ -95,7 +95,7 @@ class Validator
     /**
      * Проверить массив с информацией о доставке
      * @param array $delivery_info ассоциативный массив, содержащий информацию о доставке
-     * @throws Morfin60\BoxberryApi\Exception\ValidationException
+     * @throws \Morfin60\BoxberryApi\Exception\ValidationException
      */
     public function validateDeliveryInfo($delivery_info)
     {
@@ -167,9 +167,9 @@ class Validator
 
     /**
      * Функция, проверяющая входные значения используя набор правил $constraint
-     * @param array $fields ассоциативный массив полей
-     * @param Symfony\Component\Validator\Constraints\Collection $constraint набор правил, по которым будет производиться проверка
-     * @throws Morfin60\BoxberryApi\Exception\ValidationException
+     * @param array $values ассоциативный массив полей
+     * @param \Symfony\Component\Validator\Constraints\Collection $constraint набор правил, по которым будет производиться проверка
+     * @throws \Morfin60\BoxberryApi\Exception\ValidationException
      */
     public function validateValues($values, $constraint)
     {
