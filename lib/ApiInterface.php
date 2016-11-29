@@ -1,6 +1,6 @@
 <?php
 
-namespace morfin60\BoxberryApi;
+namespace Morfin60\BoxberryApi;
 /**
  * Интерфейс API Boxberry
  */

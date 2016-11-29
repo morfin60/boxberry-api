@@ -39,7 +39,7 @@ class Json implements ApiInterface
 
         $url = (( true === $use_https)?'https':'http').'://'.$api_url;
 
-        $this->url = $api_url.'/json.php';
+        $this->url = $url.'/json.php';
         $this->api_key = $api_key;
         $this->client = new \GuzzleHttp\Client();
     }
