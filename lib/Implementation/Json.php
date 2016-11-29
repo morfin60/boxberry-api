@@ -32,7 +32,8 @@ class Json implements ApiInterface
 
     /**
      * @param string $api_key
-     * @param string $base_url
+     * @param $api_url
+     * @param $use_https
      */
     public function __construct($api_key, $api_url, $use_https)
     {
@@ -259,7 +260,7 @@ class Json implements ApiInterface
         if (array_key_exists('type', $options)) {
             $allowed_types = ['GET', 'POST'];
             if (!in_array($options['type'], $allowed_types)) {
-                throw new InvalidArgumentException('Invalid request type '.$options['type']);
+                throw new \InvalidArgumentException('Invalid request type '.$options['type']);
             }
             else {
                 $type = $options['type'];

@@ -14,12 +14,12 @@ class Soap implements ApiInterface
 {
 
     /**
-     * @var SoapClient;
+     * @var \SoapClient;
      */
     private $public_api;
 
     /**
-     * @var SoapClient;
+     * @var \SoapClient;
      */
     private $lc_api;
 
@@ -31,7 +31,9 @@ class Soap implements ApiInterface
 
     /**
      * @param string $api_key
-     * @param string $base_url
+     * @param $api_url
+     * @param $use_https
+     * @param array $options
      */
     public function __construct($api_key, $api_url, $use_https, $options = [])
     {
@@ -263,7 +265,7 @@ class Soap implements ApiInterface
 
     /**
      * {@inheritdoc}
-     * @throws SoapFault
+     * @throws \SoapFault
      */
     public function sendRequest($method, $parameters = [], $options = [])
     {
