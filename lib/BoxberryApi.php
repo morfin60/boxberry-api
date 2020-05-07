@@ -116,7 +116,7 @@ class BoxberryApi implements ApiInterface
 
         $constraint = new Assert\Collection([
             'city_code' => new Assert\Required([
-                new Assert\Type(['type' => 'numeric', 'message' => 'city_code should be either json or soap']),
+                new Assert\Type(['type' => 'string', 'message' => 'city_code should be either json or soap']),
                 new Assert\GreaterThanOrEqual(['value' => 0, 'message' => 'city_code should be greater or equal than {{ compared_value }}'])
             ]),
             'prepaid' => new Assert\Required([

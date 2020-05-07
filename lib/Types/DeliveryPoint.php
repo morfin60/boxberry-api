@@ -100,7 +100,7 @@ class DeliveryPoint extends Base
 
     public function __construct($object)
     {
-    	$object->Code = intval($object->Code);
+    	//$object->Code = intval($object->Code);
     	$object->CityCode = isset($object->CityCode)?intval($object->CityCode):null;
     	$object->TariffZone = isset($object->TariffZone)?intval($object->TariffZone):null;
     	$object->DeliveryPeriod = isset($object->DeliveryPeriod)?intval($object->DeliveryPeriod):null;
