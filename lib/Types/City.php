@@ -9,7 +9,7 @@ class City extends Base
 
     public function __construct($object)
     {
-    	$object->Code = intval($object->Code);
+    	//$object->Code = intval($object->Code);
         parent::__construct($object);
     }
 }
